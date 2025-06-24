@@ -8,6 +8,7 @@ import AddExpense from './pages/AddExpense';
 import CreateGroup from './pages/CreateGroup';
 import ViewGroups from './pages/ViewGroups';
 import BalanceSummary from './pages/BalanceSummary';
+import EditExpense from './pages/EditExpense';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/create-group" element={<CreateGroup />} />
           <Route path="/view-groups" element={<ViewGroups />} />
           <Route path="/balance-summary" element={<BalanceSummary />} />
+          <Route path="/edit/:id" element={<EditExpense />} />
         </Routes>
       </Layout>
     </Router>

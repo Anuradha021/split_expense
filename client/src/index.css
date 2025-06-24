@@ -1,4 +1,12 @@
 @import "tailwindcss";
 body {
-  @apply bg-gray-50 font-sans;
+  @apply font-sans;
+}
+
+html body {
+  @apply bg-gray-50 text-gray-900;
+}
+
+html.dark body {
+  @apply bg-gray-900 text-white;
 }

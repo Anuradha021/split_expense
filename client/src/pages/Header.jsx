@@ -1,26 +1,33 @@
-// Header.jsx
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Header = () => {
+  const location = useLocation();
+
+  const navLinks = [
+    { path: '/', label: 'Home' },
+    { path: '/add-expense', label: 'Add Expense' },
+    { path: '/create-group', label: 'Create Group' },
+    { path: '/groups', label: 'View Groups' },
+    { path: '/balance-summary', label: 'Balance Summary' },
+  ];
+
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center gap-6">
-        <Link to="/" className="text-indigo-700 font-semibold hover:text-indigo-900 no-underline">
-          Home
-        </Link>
-        <Link to="/add-expense" className="text-indigo-700 font-semibold hover:text-indigo-900 no-underline">
-          Add Expense
-        </Link>
-        <Link to="/create-group" className="text-indigo-700 font-semibold hover:text-indigo-900 no-underline">
-          Create Group
-        </Link>
-        <Link to="/view-groups" className="text-indigo-700 font-semibold hover:text-indigo-900 no-underline">
-          View Groups
-        </Link>
-        <Link to="/balance-summary" className="text-indigo-700 font-semibold hover:text-indigo-900 no-underline">
-          Balance Summary
-        </Link>
+    <header className="bg-gradient-to-r from-indigo-200 via-purple-100 to-blue-100 shadow-md sticky top-0 z-50">
+      <div className="max-w-6xl mx-auto px-6 py-4 flex flex-wrap gap-4 items-center justify-center md:justify-start">
+        {navLinks.map((link) => (
+          <Link
+            key={link.path}
+            to={link.path}
+            className={`text-sm md:text-base font-medium px-3 py-1 rounded-md transition-colors ${
+              location.pathname === link.path
+                ? 'bg-indigo-600 text-white'
+                : 'text-indigo-800 hover:bg-indigo-300/60 hover:text-indigo-900'
+            }`}
+          >
+            {link.label}
+          </Link>
+        ))}
       </div>
     </header>
   );

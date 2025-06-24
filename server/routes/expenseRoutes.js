@@ -58,6 +58,21 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+router.get('/:id', async (req, res) => {
+  const exp = await Expense.findById(req.params.id);
+  res.json(exp);
+});
 
+// PUT update
+router.put('/:id', async (req, res) => {
+  const updated = await Expense.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  res.json(updated);
+});
+
+// DELETE
+router.delete('/:id', async (req, res) => {
+  await Expense.findByIdAndDelete(req.params.id);
+  res.json({ message: 'Deleted' });
+});
 
 export default router;
