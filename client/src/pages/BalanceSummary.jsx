@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import API from '../api';
 
 const BalanceSummary = () => {
-  const [summary, setSummary] = useState([]);
+  const [groupedSummary, setGroupedSummary] = useState([]);
 
   useEffect(() => {
     const fetchSummary = async () => {
       const res = await API.get('/expenses/summary');
-      setSummary(res.data);
+      setGroupedSummary(res.data);
     };
     fetchSummary();
   }, []);
@@ -15,23 +15,26 @@ const BalanceSummary = () => {
   return (
     <div className="min-h-screen bg-gray-100 py-10 px-6">
       <div className="max-w-3xl mx-auto">
-        {/* Heading outside the box */}
-        <h2 className="text-3xl font-bold text-indigo-700 mb-6 text-center">
-           Balance Summary
-        </h2>
+        <h2 className="text-3xl font-bold text-indigo-700 mb-6 text-center">Balance Summary</h2>
 
-        {/* Card for summary list only */}
-        <div className="bg-white p-8 rounded-xl shadow-2xl">
-          {summary.length > 0 ? (
-            <ul className="list-disc pl-6 space-y-2 text-gray-700">
-              {summary.map((item, index) => (
-                <li key={index} className="leading-relaxed">{item}</li>
-              ))}
-            </ul>
-          ) : (
-            <p className="text-center text-gray-500">No summary available.</p>
-          )}
-        </div>
+        {groupedSummary.length > 0 ? (
+          groupedSummary.map((group, idx) => (
+            <div key={idx} className="bg-white p-6 rounded-xl shadow-lg mb-6">
+  <h3 className="text-xl font-semibold text-indigo-600 mb-4">{group.groupName}</h3>
+  {Array.isArray(group.summary) && group.summary.length > 0 ? (
+    <ul className="list-disc pl-6 space-y-1 text-gray-700">
+      {group.summary.map((item, i) => (
+        <li key={i}>{item}</li>
+      ))}
+    </ul>
+  ) : (
+    <p className="text-gray-500">No expenses yet.</p>
+  )}
+</div>
+          ))
+        ) : (
+          <p className="text-center text-gray-500">No summary available.</p>
+        )}
       </div>
     </div>
   );
