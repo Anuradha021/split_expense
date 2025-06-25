@@ -10,7 +10,8 @@ const expenseSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Group',
     required: true
-  }
+  },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, 
 });
 
 export default mongoose.model('Expense', expenseSchema);
